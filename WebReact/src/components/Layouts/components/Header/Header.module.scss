@@ -1,0 +1,62 @@
+@use '../../../GlobalStyles/Variables.scss' as variables;
+
+.wrapper {
+    background: #070720;
+    display: block;
+    color: white;
+}
+
+.row {
+    display: flex;
+    margin: 0 -15px;
+    height: 64px;
+}
+
+.col-lg-2 {
+    flex-basis: calc(100% / 6);
+    padding: 0 15px;
+    align-self: center;
+}
+
+.col-lg-8 {
+    flex-basis: calc(100% * 2 / 3);
+    padding: 0 15px;
+    align-self: center;
+}
+
+.menu-container {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-container > li {
+    height: 100%;
+    margin-right: 16px;
+}
+
+.menu-container > li > a {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: block;
+    padding: 20px;
+    color: white;
+
+    &:visited {
+        color: white;
+    }
+}
+
+.active {
+    background-color: #e53637;
+}
+
+.mobile-menu {
+    @media (min-width: variables.$breakpoint-lg) {
+        display: none;
+    }
+}
