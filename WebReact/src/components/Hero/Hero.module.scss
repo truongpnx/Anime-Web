@@ -1,0 +1,121 @@
+@use '../GlobalStyles/Variables.scss' as variables;
+
+.wrapper {
+    padding-top: 50px;
+    overflow: hidden;
+}
+
+.carousel {
+    display: block;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.slider-outer {
+    overflow: hidden;
+    position: relative;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.slider {
+    display: flex;
+}
+
+.slider-item {
+    height: 500px;
+    text-align: center;
+    background-color: #eee;
+}
+
+.nav {
+    @media (max-width: 479px) {
+        display: none;
+    }
+}
+
+.nav-btn {
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+    cursor: pointer;
+
+    &::after {
+        position: absolute;
+        top: 6px;
+        left: 0;
+        right: 0;
+        height: 54px;
+        width: 54px;
+        background: rgba(255, 255, 255, 0.1);
+        content: '';
+        z-index: -1;
+        margin: 0 auto;
+    }
+}
+
+.nav-btn-prev {
+    font-size: 3.6rem;
+    height: 66px;
+    width: 66px;
+    background: #0b0c2a;
+    line-height: 66px;
+    text-align: center;
+    color: #ffffff;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 1;
+    position: absolute;
+    left: -33px;
+    top: 50%;
+    margin-top: -47px;
+}
+
+.nav-btn-next {
+    left: auto;
+    right: -33px;
+    font-size: 3.6rem;
+    height: 66px;
+    width: 66px;
+    background: #0b0c2a;
+    line-height: 66px;
+    text-align: center;
+    color: #ffffff;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    margin-top: -47px;
+}
+
+.nav-btn > span {
+    transform: rotate(-45deg);
+    display: block;
+}
+
+.nav-btn > span > svg {
+    text-align: center;
+}
+
+.dots {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.dot,
+.activeDot {
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 1.5em;
+    color: #b7b7b7;
+}
+
+.activeDot {
+    color: #ffffff;
+}

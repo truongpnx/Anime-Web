@@ -1,9 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
 
 function App() {
+    useEffect(() => {
+        document.title = 'My Anime Web';
+    }, []);
+
     return (
         <Router
             future={{
