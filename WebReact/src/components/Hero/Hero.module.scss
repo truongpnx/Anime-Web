@@ -1,4 +1,5 @@
 @use '../GlobalStyles/Variables.scss' as variables;
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 .wrapper {
     padding-top: 50px;
@@ -15,17 +16,6 @@
 .slider-outer {
     overflow: hidden;
     position: relative;
-    -webkit-transform: translate3d(0, 0, 0);
-}
-
-.slider {
-    display: flex;
-}
-
-.slider-item {
-    height: 500px;
-    text-align: center;
-    background-color: #eee;
 }
 
 .nav {
@@ -55,7 +45,7 @@
 }
 
 .nav-btn-prev {
-    font-size: 3.6rem;
+    font-size: 2.4rem;
     height: 66px;
     width: 66px;
     background: #0b0c2a;
@@ -75,7 +65,7 @@
 .nav-btn-next {
     left: auto;
     right: -33px;
-    font-size: 3.6rem;
+    font-size: 2.4rem;
     height: 66px;
     width: 66px;
     background: #0b0c2a;
@@ -118,4 +108,118 @@
 
 .activeDot {
     color: #ffffff;
+}
+
+.slider {
+    display: flex;
+}
+
+.slider-item {
+    text-align: center;
+    border-radius: 5px;
+}
+
+.slider-img {
+    padding: 250px 0 42px 50px;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+.slider-detail-container {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.slider-detail {
+    width: 100%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.detail {
+    position: relative;
+    z-index: 9;
+}
+
+.label {
+    font-size: 1.3rem;
+    color: #e53637;
+    background: #ffffff;
+    padding: 5px 14px 3px;
+    display: inline-block;
+    position: relative;
+    top: -100px;
+    opacity: 0;
+    -webkit-transition: all, 0.2s;
+    -o-transition: all, 0.2s;
+    transition: all, 0.2s;
+}
+
+.detail h2 {
+    color: #ffffff;
+    font-size: 4.2rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    line-height: 5.2rem;
+    margin-top: 35px;
+    margin-bottom: 8px;
+    position: relative;
+    top: -100px;
+    opacity: 0;
+    -webkit-transition: all, 0.4s;
+    -o-transition: all, 0.4s;
+    transition: all, 0.4s;
+}
+
+.detail p {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 40px;
+    position: relative;
+    top: -100px;
+    opacity: 0;
+    -webkit-transition: all, 0.6s;
+    -o-transition: all, 0.6s;
+    transition: all, 0.6s;
+}
+
+.detail a {
+    position: relative;
+    top: -100px;
+    opacity: 0;
+    -webkit-transition: all, 0.8s;
+    -o-transition: all, 0.8s;
+    transition: all, 0.8s;
+}
+
+.detail a > div {
+    display: inline-block;
+    background: #e53637;
+    padding: 10px 5px 13px 8px;
+    color: #ffffff;
+    border-radius: 0 4px 4px 0;
+}
+
+.detail a span {
+    font-size: 1.3rem;
+    color: #ffffff;
+    background: #e53637;
+    display: inline-block;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    border-radius: 4px 0 0 4px;
+    margin-right: 1px;
+}
+
+.carousel .slider-item.active-item .detail .label,
+.carousel .slider-item.active-item .detail h2,
+.carousel .slider-item.active-item .detail p,
+.carousel .slider-item.active-item .detail a {
+    top: 0;
+    opacity: 1;
 }

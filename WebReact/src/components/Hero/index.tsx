@@ -5,23 +5,45 @@ import styles from './Hero.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import hero_img from '../../assets/images/hero.jpg';
+import { Link } from 'react-router-dom';
 
 interface SliderItemProps {
-    key: any;
     width: number;
     image_src: string;
+    active: Boolean;
 }
 
 function SliderItem(props: SliderItemProps) {
     return (
         <div
-            key={props.key}
-            className={styles['slider-item']}
+            className={clsx(styles['slider-item'], { [styles['active-item']]: props.active })}
             style={{
                 width: `${props.width}px`,
             }}
         >
-            <img src={props.image_src} alt="slider item" />
+            <div
+                className={styles['slider-img']}
+                style={{
+                    backgroundImage: `url(${props.image_src})`,
+                }}
+            >
+                <div className={styles['slider-detail-container']}>
+                    <div className={styles['slider-detail']}>
+                        <div className={styles.detail}>
+                            <div className={styles.label}>Adventure</div>
+                            <h2>Fate / Stay Night: Unlimited Blade Works</h2>
+                            <p>After 30 days of travel across the world...</p>
+                            <Link to="/">
+                                <span>Watch Now</span>
+                                &nbsp;
+                                <div>
+                                    <FontAwesomeIcon icon={faAngleUp} rotation={90} />
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
@@ -54,7 +76,7 @@ function Hero() {
     };
 
     useEffect(() => {
-        const interval = setInterval(goToNextSlide, 3000);
+        const interval = setInterval(goToNextSlide, 5000);
         return () => clearInterval(interval);
     }, []);
 
@@ -78,7 +100,12 @@ function Hero() {
                             }}
                         >
                             {[...Array(totalSlides)].map((_, index) => (
-                                <SliderItem key={index} width={slideWidth} image_src={hero_img} />
+                                <SliderItem
+                                    key={index}
+                                    width={slideWidth}
+                                    image_src={hero_img}
+                                    active={index === currentSlide}
+                                />
                             ))}
                         </div>
                     </div>
