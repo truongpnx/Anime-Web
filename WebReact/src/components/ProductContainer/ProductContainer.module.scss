@@ -1,0 +1,22 @@
+@use '../GlobalStyles/Variables.scss' as variables;
+
+.wrapper {
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    @media (min-width: variables.$breakpoint-sm) {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 calc(100% / 3);
+        max-width: calc(100% / 3);
+    }
+}

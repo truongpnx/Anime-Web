@@ -1,5 +1,7 @@
 @use './Variables.scss' as variables;
 @import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 :root {
     --blue: #007bff;
@@ -42,6 +44,7 @@ html {
 }
 
 body {
+    font-family: 'Mulish', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 1.5;

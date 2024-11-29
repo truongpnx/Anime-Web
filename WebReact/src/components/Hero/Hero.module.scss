@@ -1,5 +1,4 @@
 @use '../GlobalStyles/Variables.scss' as variables;
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 .wrapper {
     padding-top: 50px;
@@ -135,8 +134,10 @@
 
 .slider-detail {
     width: 100%;
-    flex: 0 0 50%;
-    max-width: 50%;
+    @media (min-width: variables.$breakpoint-lg) {
+        max-width: 50%;
+        flex: 0 0 50%;
+    }
 }
 
 .detail {
@@ -172,6 +173,10 @@
     -webkit-transition: all, 0.4s;
     -o-transition: all, 0.4s;
     transition: all, 0.4s;
+
+    @media (max-width: 479px) {
+        font-size: 3.2rem;
+    }
 }
 
 .detail p {

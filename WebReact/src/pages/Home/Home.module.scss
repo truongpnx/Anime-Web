@@ -1,0 +1,115 @@
+@use '../../components/GlobalStyles/Variables.scss' as variables;
+
+.products {
+    padding-bottom: 60px;
+    padding-top: 80px;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main {
+    width: 100%;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 calc(200% / 3);
+        max-width: calc(200% / 3);
+    }
+}
+
+.product-container {
+    margin-bottom: 50px;
+}
+
+.sub {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 calc(100% / 3);
+        max-width: calc(100% / 3);
+    }
+}
+
+.top {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    @media (min-width: variables.$breakpoint-sm) {
+        flex: 0 0 calc(200% / 3);
+        max-width: calc(200% / 3);
+    }
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.title h4 {
+    font-size: 2.4rem;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 21px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    position: relative;
+    font-family: 'Oswald', sans-serif;
+
+    &::after {
+        position: absolute;
+        left: 0;
+        top: -6px;
+        height: 32px;
+        width: 4px;
+        background: #e53637;
+        content: '';
+    }
+}
+
+.view-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    @media (min-width: variables.$breakpoint-sm) {
+        flex: 0 0 calc(100% / 3);
+        max-width: calc(100% / 3);
+    }
+}
+
+.view-all {
+    text-align: right;
+    margin-bottom: 30px;
+
+    @media only screen and (max-width: calc(variables.$breakpoint-md - 1px)) {
+        text-align: left;
+    }
+}
+
+.view-all a {
+    background-color: transparent;
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-decoration: none;
+    outline: none;
+}
+
+.view-all a svg {
+    font-size: 1.5rem;
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+}
