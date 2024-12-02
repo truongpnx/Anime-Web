@@ -9,10 +9,10 @@ import images from '../../../../assets/images';
 import { publicRoutes } from '../../../../routes';
 
 const menuItem = [
-    { text: 'Homepage', path: publicRoutes[0].path },
-    { text: 'Categories', path: publicRoutes[1].path },
-    { text: 'Our Blog', path: publicRoutes[6].path },
-    { text: 'Contacts', path: publicRoutes[7].path },
+    { text: 'Homepage', path: publicRoutes.home.path },
+    { text: 'Categories', path: publicRoutes.categories.path },
+    { text: 'Our Blog', path: publicRoutes.blog.path },
+    { text: 'Contacts', path: publicRoutes.contacts.path },
 ];
 
 function Header() {

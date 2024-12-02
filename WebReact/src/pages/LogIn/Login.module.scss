@@ -1,0 +1,245 @@
+@use '../../components/GlobalStyles/Variables.scss' as variables;
+
+.breadcrum {
+    height: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+.text {
+    text-align: center !important;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+}
+
+.text h2 {
+    color: #ffffff;
+    font-size: 4.8rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    margin: 0 0 22px 0;
+}
+
+.text p {
+    color: #ffffff;
+    font-size: 2.4rem;
+    margin: 0;
+    font-weight: 400;
+    line-height: 25px;
+    font-family: 'Mulish', sans-serif;
+}
+
+.login-container {
+    padding-top: 130px;
+    padding-bottom: 120px;
+    display: block;
+}
+
+.login {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.login-form {
+    position: relative;
+    width: 100%;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+.form {
+    position: relative;
+    margin-bottom: 40px;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        &::after {
+            position: absolute;
+            right: 0px;
+            top: -40px;
+            height: 330px;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            content: '';
+        }
+
+        margin-bottom: 0px;
+        padding-left: 145px;
+    }
+
+    @media only screen and (min-width: variables.$breakpoint-lg) and (max-width: calc(variables.$breakpoint-xl - 1px)) {
+        padding-left: 32px;
+        margin-bottom: 0px;
+    }
+}
+
+.login-register {
+    width: 100%;
+    position: relative;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+.forget-pass {
+    font-size: 1.5rem;
+    color: #ffffff;
+    display: inline-block;
+    position: absolute;
+    right: 60px;
+    bottom: 12px;
+    text-decoration: none;
+    background-color: transparent;
+
+    @media only screen and (max-width: 479px) {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        margin-top: 25px;
+    }
+}
+
+.form h3 {
+    color: #ffffff;
+    font-weight: 700;
+    font-family: 'Oswald', sans-serif;
+    margin: 0 0 30px;
+    font-size: 3rem;
+}
+
+.input-item {
+    position: relative;
+    width: auto;
+    margin-bottom: 20px;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        width: 370px;
+    }
+
+    &::before {
+        position: absolute;
+        left: 50px;
+        top: 10px;
+        height: 30px;
+        width: 1px;
+        background: #b7b7b7;
+        content: '';
+    }
+}
+
+.input-item input {
+    height: 50px;
+    width: 100%;
+    font-size: 1.5rem;
+    color: #b7b7b7;
+    background: #ffffff;
+    border: none;
+    padding-left: 76px;
+    overflow: visible;
+    margin: 0;
+    font-family: inherit;
+    line-height: inherit;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.input-item svg {
+    color: #b7b7b7;
+    font-size: 2rem;
+    position: absolute;
+    left: 15px;
+    top: 13px;
+}
+
+.submit-btn {
+    border-radius: 0;
+    margin: 10px 0 0 0;
+    font-size: 13px;
+    color: #ffffff;
+    background: #e53637;
+    font-weight: 700;
+    border: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 12px 30px;
+    overflow: visible;
+}
+
+.submit-btn,
+[type='submit'].submit-btn {
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+.register {
+    padding-left: 50px;
+    width: 100%;
+    @media only screen and (max-width: calc(variables.$breakpoint-lg - 1px)) {
+        padding-left: 0;
+    }
+}
+
+.register h3 {
+    color: #ffffff;
+    font-weight: 700;
+    font-family: 'Oswald', sans-serif;
+    margin: 0 0 30px;
+    font-size: 3rem;
+}
+
+.register-btn {
+    background: #e53637;
+    padding: 12px 42px;
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.login-social {
+    padding-top: 52px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-social > div {
+    width: 100%;
+    text-align: center;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+.login-social span {
+    color: #ffffff;
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}

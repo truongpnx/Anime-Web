@@ -1,0 +1,53 @@
+@use '../GlobalStyles/Variables.scss' as variables;
+
+.wrapper {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.wrapper li {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+.wrapper li a {
+    color: #ffffff;
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 460px;
+    padding: 14px 0;
+    position: relative;
+    margin: 0 auto;
+    text-decoration: none;
+
+    @media only screen and (max-width: calc(variables.$breakpoint-md - 1px)) {
+        width: auto;
+    }
+}
+
+.facebook {
+    background: #4267b2;
+}
+
+.google {
+    background: #ff4343;
+}
+
+.twitter {
+    background: #000000;
+}
+
+.wrapper svg {
+    font-size: 2rem;
+    position: absolute;
+    left: 32px;
+    top: 14px;
+
+    @media only screen and (max-width: 479px) {
+        left: 20px;
+    }
+}

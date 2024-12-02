@@ -17,7 +17,7 @@ function App() {
         >
             <div className="App">
                 <Routes>
-                    {publicRoutes.map((route, index) => {
+                    {Object.entries(publicRoutes).map(([_, route], index) => {
                         const Page = route.component;
                         let Layout =
                             route.layout === undefined

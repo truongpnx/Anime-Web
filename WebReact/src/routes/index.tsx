@@ -8,19 +8,21 @@ import Blog from '../pages/Blog';
 import Contacts from '../pages/Contacts';
 
 const publicRoutes: {
-    path: string;
-    component: () => JSX.Element;
-    layout?: () => JSX.Element | null;
-}[] = [
-    { path: '/', component: Home },
-    { path: '/categories', component: Categories },
-    { path: '/details', component: Details },
-    { path: '/watching', component: Watching },
-    { path: '/signup', component: SignUp },
-    { path: '/login', component: LogIn },
-    { path: '/blog', component: Blog },
-    { path: '/contacts', component: Contacts },
-];
+    [key: string]: {
+        path: string;
+        component: () => JSX.Element;
+        layout?: () => JSX.Element | null;
+    };
+} = {
+    home: { path: '/', component: Home },
+    categories: { path: '/categories', component: Categories },
+    details: { path: '/details', component: Details },
+    watching: { path: '/watching', component: Watching },
+    signUp: { path: '/signup', component: SignUp },
+    logIn: { path: '/login', component: LogIn },
+    blog: { path: '/blog', component: Blog },
+    contacts: { path: '/contacts', component: Contacts },
+};
 
 // const privateRoutes = [];
 
