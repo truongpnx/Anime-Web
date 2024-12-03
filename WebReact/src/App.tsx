@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
+import NotFound from './pages/NotFound';
 
 function App() {
     useEffect(() => {
@@ -38,6 +39,7 @@ function App() {
                             />
                         );
                     })}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </Router>
