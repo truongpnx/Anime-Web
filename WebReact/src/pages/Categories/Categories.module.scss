@@ -1,46 +1,5 @@
 @use '../../components/GlobalStyles/Variables.scss' as variables;
 
-.breadcrumb {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 35px;
-}
-
-.links {
-    flex: 0 0 100%;
-    max-width: 100%;
-
-    a {
-        font-size: 1.5rem;
-        color: #ffffff;
-        margin-right: 18px;
-        display: inline-block;
-        position: relative;
-        text-decoration: none;
-        background-color: transparent;
-    }
-
-    span {
-        font-size: 1.5rem;
-        color: #b7b7b7;
-        display: inline-block;
-    }
-}
-
-.house {
-    margin-right: 8px;
-    color: #e53637;
-    font-size: 1.2rem;
-    top: -2px;
-    position: relative;
-}
-
-.arrow {
-    position: absolute;
-    right: -18px;
-    top: 5px;
-}
-
 .products {
     padding-bottom: 60px;
     padding-top: 80px;
@@ -57,6 +16,7 @@
     @media (min-width: variables.$breakpoint-lg) {
         flex: 0 0 calc(200% / 3);
         max-width: calc(200% / 3);
+        padding-right: 15px;
     }
 }
 
@@ -66,12 +26,15 @@
 
 .sub {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
 
     @media (min-width: variables.$breakpoint-lg) {
         flex: 0 0 calc(100% / 3);
         max-width: calc(100% / 3);
+        padding-left: 15px;
+    }
+
+    @media (max-width: calc(variables.$breakpoint-lg - 1px)) {
+        padding-top: 50px;
     }
 }
 
@@ -81,7 +44,7 @@
     position: relative;
     padding-bottom: 10px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    margin: 0px 15px 30px;
+    margin: 0 0 30px;
 }
 
 .title-container {

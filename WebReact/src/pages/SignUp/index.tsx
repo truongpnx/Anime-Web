@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './SignUp.module.scss';
-import heroImg from '../../assets/images/hero.jpg';
+import images from '../../assets/images';
 import SocialLogin from '../../components/SocialLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 function SignUp() {
     return (
         <>
-            <section className={styles.breadcrum} style={{ backgroundImage: `url(${heroImg})` }}>
+            <section className={styles.breadcrum} style={{ backgroundImage: `url(${images.hero})` }}>
                 <div className="container">
                     <div className={styles.text}>
                         <h2>Sign Up</h2>

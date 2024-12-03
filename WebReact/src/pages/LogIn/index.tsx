@@ -2,7 +2,7 @@ import React from 'react';
 import SocialLogin from '../../components/SocialLogin';
 
 import styles from './Login.module.scss';
-import heroImg from '../../assets/images/hero.jpg';
+import images from '../../assets/images';
 import { Form, Link } from 'react-router-dom';
 import { publicRoutes } from '../../routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 function LogIn() {
     return (
         <>
-            <section className={styles.breadcrum} style={{ backgroundImage: `url(${heroImg})` }}>
+            <section className={styles.breadcrum} style={{ backgroundImage: `url(${images.hero})` }}>
                 <div className="container">
                     <div className={styles.text}>
                         <h2>Login</h2>

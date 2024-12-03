@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import styles from './TopView.module.scss';
+import styles from './Recommend.module.scss';
 import clsx from 'clsx';
-import hero_img from '../../assets/images/hero.jpg';
+import images from '../../assets/images';
 import { Link } from 'react-router-dom';
 
-interface ItemProps {
+interface RecommendItemProps {
     className?: string;
     style?: React.CSSProperties;
 }
 
-function Item(props: ItemProps) {
+export function RecommendItem(props: RecommendItemProps) {
     return (
         <div
             className={clsx(styles.item, props.className)}
-            style={{ backgroundImage: `url(${hero_img})`, ...props.style }}
+            style={{ backgroundImage: `url(${images.hero})`, ...props.style }}
         >
             <div className={styles.ep}>18 / ?</div>
             <div className={styles.view}>
@@ -32,7 +32,7 @@ function Item(props: ItemProps) {
 
 const filterValues = ['Day', 'Week', 'Month', 'Years'];
 
-function TopView() {
+function Recommend() {
     const [filter, setFilter] = useState('Day');
     const [items, setItems] = useState<{ id: number; key: string }[]>([]);
     const [isUnmounting, setIsUnmounting] = useState(false);
@@ -76,22 +76,13 @@ function TopView() {
                     </li>
                 ))}
             </ul>
-            <div
-                className={styles.gallery}
-                // style={{
-                //     perspective: '3000px',
-                //     perspectiveOrigin: '50% 50%',
-                //     height: '1030px',
-                //     width: '360px',
-                //     transition: 'height 600ms, width 600ms',
-                // }}
-            >
+            <div className={styles.gallery}>
                 {items.map((it) => (
-                    <Item key={it.key} className={clsx({ [styles.unmounting]: isUnmounting })} />
+                    <RecommendItem key={it.key} className={clsx({ [styles.unmounting]: isUnmounting })} />
                 ))}
             </div>
         </div>
     );
 }
 
-export default TopView;
+export default Recommend;

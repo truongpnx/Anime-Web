@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Home.module.scss';
 import Hero from '../../components/Hero';
 import ProductContainer from '../../components/ProductContainer';
-import TopView from '../../components/TopView';
+import Recommend from '../../components/Recommend';
 import Comment from '../../components/Comment';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -76,7 +76,7 @@ function Home() {
                             <CustomProductContainer title="Live Action" data={dummyData} />
                         </div>
                         <div className={styles.sub}>
-                            <TopView />
+                            <Recommend />
                             <Comment />
                         </div>
                     </div>

@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './Categories.module.scss';
 import ProductContainer from '../../components/ProductContainer';
-import TopView from '../../components/TopView';
+import TopView from '../../components/Recommend';
 import Comment from '../../components/Comment';
 import { publicRoutes } from '../../routes';
 
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAnglesRight, faAngleUp, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesRight, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
+import LinkBreadcrumb from '../../components/LinkBreadcrumb';
 
 const filterTypes: { [key: string]: string } = {
     topView: 'Top View',
@@ -176,24 +177,10 @@ function Categories() {
 
     return (
         <>
-            <div className={styles.breadcrumb}>
-                <div className="container">
-                    <div className={styles.links}>
-                        <Link to="/">
-                            <FontAwesomeIcon icon={faHouse} className={styles.house} />
-                            Home
-                            <FontAwesomeIcon icon={faAngleUp} className={styles.arrow} rotation={90} />
-                        </Link>
-                        &nbsp;
-                        <Link to={publicRoutes.categories.path}>
-                            Categories
-                            <FontAwesomeIcon icon={faAngleUp} className={styles.arrow} rotation={90} />
-                        </Link>
-                        &nbsp;
-                        <span>{movieType ? movieType : 'Romance'}</span>
-                    </div>
-                </div>
-            </div>
+            <LinkBreadcrumb
+                current={movieType ? movieType : 'Romance'}
+                internalLinks={[{ text: 'Categories', path: publicRoutes.categories.path }]}
+            />
             <section className={styles.products}>
                 <div className="container">
                     <div className={styles.content}>

@@ -1,0 +1,29 @@
+.wrapper {
+    margin-bottom: 55px;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.title h5 {
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 21px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    position: relative;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8rem;
+    margin: 0;
+
+    &::after {
+        position: absolute;
+        left: 0;
+        top: -6px;
+        height: 32px;
+        width: 4px;
+        background: #e53637;
+        content: '';
+    }
+}

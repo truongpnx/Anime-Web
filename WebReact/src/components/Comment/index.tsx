@@ -6,7 +6,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 import styles from './Comment.module.scss';
-import hero_img from '../../assets/images/hero.jpg';
+import images from '../../assets/images';
 
 interface ItemProps {
     className?: string;
@@ -23,7 +23,7 @@ function Item(props: ItemProps) {
     return (
         <div className={clsx(styles.item, props.className)} style={{ ...props.style }}>
             <div className={styles.picture}>
-                <img src={hero_img} alt="" />
+                <img src={images.hero} alt="" />
             </div>
             <div className={styles['item-text']}>
                 <ul className={styles.classes}>

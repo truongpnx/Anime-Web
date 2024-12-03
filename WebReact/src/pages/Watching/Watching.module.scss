@@ -1,0 +1,124 @@
+@use '../../components/GlobalStyles/Variables.scss' as variables;
+
+.wrapper {
+    padding-top: 60px;
+    padding-bottom: 100px;
+    display: block;
+}
+
+.video-details {
+    width: 100%;
+}
+
+.video-player {
+    margin-bottom: 70px;
+}
+
+.episodes {
+    margin-bottom: 35px;
+}
+
+.episodes a {
+    display: inline-block;
+    font-size: 15px;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    -webkit-transition: all, 0.3s;
+    transition: all, 0.3s;
+
+    &:hover {
+        color: #000000;
+        background: #ffffff;
+    }
+}
+
+.episodes a.selected {
+    color: #000000;
+    background: #ffffff;
+}
+
+.review-container {
+    width: 100%;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        flex: 0 0 calc(200% / 3);
+        max-width: calc(200% / 3);
+    }
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.title h5 {
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 21px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    position: relative;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8rem;
+    margin: 0;
+
+    &::after {
+        position: absolute;
+        left: 0;
+        top: -6px;
+        height: 32px;
+        width: 4px;
+        background: #e53637;
+        content: '';
+    }
+}
+
+.review-form form textarea {
+    width: 100%;
+    font-size: 1.5rem;
+    color: #b7b7b7;
+    padding-left: 20px;
+    padding-top: 12px;
+    height: 110px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    margin: 0 0 24px;
+    overflow: auto;
+    font-family: inherit;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.review-btn {
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: #e53637;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 2px;
+    overflow: visible;
+    margin: 0;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+.review-btn,
+[type='submit'].review-btn {
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+.review-btn svg {
+    margin-right: 5px;
+}

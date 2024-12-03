@@ -4,12 +4,12 @@ import clsx from 'clsx';
 import styles from './Hero.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import hero_img from '../../assets/images/hero.jpg';
+import images from '../../assets/images';
 import { Link } from 'react-router-dom';
 
 interface SliderItemProps {
     width: number;
-    image_src: string;
+    imageSrc: string;
     active: Boolean;
 }
 
@@ -24,7 +24,7 @@ function SliderItem(props: SliderItemProps) {
             <div
                 className={styles['slider-img']}
                 style={{
-                    backgroundImage: `url(${props.image_src})`,
+                    backgroundImage: `url(${props.imageSrc})`,
                 }}
             >
                 <div className={styles['slider-detail-container']}>
@@ -103,7 +103,7 @@ function Hero() {
                                 <SliderItem
                                     key={index}
                                     width={slideWidth}
-                                    image_src={hero_img}
+                                    imageSrc={images.hero}
                                     active={index === currentSlide}
                                 />
                             ))}
