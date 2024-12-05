@@ -5,11 +5,14 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
+const animeRoutes = require('./routes/AnimeRoutes');
+
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
-mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Failed to connect to MongoDB', err));
+mongoose
+    .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('Failed to connect to MongoDB', err));
 
 // Create Express app
 const app = express();
@@ -25,17 +28,23 @@ app.use(
     }),
 );
 
+// routes
+
+app.use('/anime', animeRoutes);
+
 // [GET] '/'
 app.get('/', (req, res) => {
-    res.redirect(`/api/hello`);
+    // res.redirect(`/anime`);
+    res.json('Hello from backend');
 });
 
-// [GET] /api/hello
-app.get('/api/hello', (req, res) => {
-    console.log('hello');
-    res.json('Hello from the backend!');
-});
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
+// [GET] /hello
+app.get('/hello', (req, res) => {
+    console.log('hello chill guy');
+    res.json("Hello chill guy, I'm from the backend!");
+});
 
 // Start the server
 app.listen(PORT, () => {
