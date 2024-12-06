@@ -4,7 +4,7 @@ const Anime = require('../models/Anime');
 const { normalizeAnimeName } = require('../helper/stringHelper');
 const { default: mongoose } = require('mongoose');
 
-// [GET] '/'
+// [GET] '/?id='
 router.get('/', async (req, res) => {
     try {
         let id = req.query.id;
@@ -41,8 +41,8 @@ router.get('/:name', async (req, res) => {
     }
 });
 
-// [POST] /add-anime
-router.post('/add-anime', async (req, res) => {
+// [POST] /add
+router.post('/add', async (req, res) => {
     try {
         let data = req.body;
 
@@ -80,7 +80,8 @@ router.post('/add-anime', async (req, res) => {
     }
 });
 
-router.post('/update-anime', async (req, res) => {
+// [POST] /update?id=
+router.post('/update', async (req, res) => {
     try {
         const id = req.query.id;
         let updates = req.body;
@@ -115,13 +116,17 @@ router.post('/update-anime', async (req, res) => {
     }
 });
 
-// [DELETE] /
+// [DELETE] /?id=
 router.delete('/', async (req, res) => {
     try {
         let id = req.query.id;
 
         if (!id) {
-            return res.status(409).json('Empty id');
+            return res.status(400).json('Empty id');
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid Anime ID' });
         }
 
         const anime = await Anime.findByIdAndDelete(id);

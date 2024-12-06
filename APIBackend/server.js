@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const animeRoutes = require('./routes/AnimeRoutes');
+const episodeRoutes = require('./routes/EpisodeRoutes');
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
@@ -31,6 +32,7 @@ app.use(
 // routes
 
 app.use('/anime', animeRoutes);
+app.use('/episode', episodeRoutes);
 
 // [GET] '/'
 app.get('/', (req, res) => {
