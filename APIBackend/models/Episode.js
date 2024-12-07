@@ -1,7 +1,8 @@
-const Anime = require('./Anime');
-
 /** @type {import('mongoose')} */
 const mongoose = require('mongoose');
+
+const Anime = require('./Anime');
+const Comment = require('./Comment');
 
 const episodeSchema = new mongoose.Schema({
     animeId: {
@@ -37,8 +38,17 @@ const episodeSchema = new mongoose.Schema({
 
 // Middleware
 
+episodeSchema.pre('deleteOne', { document: true, query: false }, async (next) => {
+    try {
+        await Comment.deleteMany({ episodeId: this._id });
+        console.log(`All comments for episode ${this._id} have been deleted.`);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
 episodeSchema.post('save', async (doc) => {
-    console.log('Post save');
     await Anime.findByIdAndUpdate(doc.animeId, { $inc: { episodesNum: 1 } });
 });
 
