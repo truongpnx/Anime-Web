@@ -29,16 +29,18 @@ animeSchema.pre('deleteOne', { document: true, query: false }, async (next) => {
 });
 
 animeSchema.post('find', async (docs, next) => {
-    for (const doc in docs) {
-        await doc
-            .populate({
+    try {
+        docs.map(async (doc) => {
+            await doc.populate({
                 path: 'genres',
                 select: 'name -_id',
                 options: { sort: { name: 1 } },
-            })
-            .execPopulate();
+            });
+        });
+        next();
+    } catch (error) {
+        next(error);
     }
-    next();
 });
 
 const Anime = mongoose.model('Anime', animeSchema);

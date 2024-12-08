@@ -1,53 +1,53 @@
 # version: '3.8'
 
 services:
-  # Front-end React app
-  web-react:
-    build:
-      context: ./WebReact # Build React app from the 'WebReact' folder
-    ports:
-      - '3000:3000'
-    volumes:
-      - ./WebReact:/app # Bind the local React app folder to the container
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    logging:
-      options:
-        max-size: '10m'
-        max-file: '3'
+    # Front-end React app
+    web-react:
+        build:
+            context: ./WebReact # Build React app from the 'WebReact' folder
+        ports:
+            - '3000:3000'
+        volumes:
+            - ./WebReact:/app # Bind the local React app folder to the container
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        logging:
+            options:
+                max-size: '10m'
+                max-file: '3'
 
-  # Back-end Node.js app
-  api-backend:
-    build:
-      context: ./APIBackend # Build back-end app from the 'APIBackend' folder
-    ports:
-      - '5000:5000'
-    volumes:
-      - ./APIBackend:/app
-    command: node --watch server.js # Start Node.js app
-    environment:
-      - MONGO_URL=mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb # Connect to the MongoDB service
-    depends_on:
-      - mongo # Wait for MongoDB to be ready
-    logging:
-      options:
-        max-size: '10m'
-        max-file: '3'
+    # Back-end Node.js app
+    api-backend:
+        build:
+            context: ./APIBackend # Build back-end app from the 'APIBackend' folder
+        ports:
+            - '5000:5000'
+        volumes:
+            - ./APIBackend:/app
+        command: npm start # Start Node.js app
+        environment:
+            - MONGO_URL=mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb # Connect to the MongoDB service
+        depends_on:
+            - mongo # Wait for MongoDB to be ready
+        logging:
+            options:
+                max-size: '10m'
+                max-file: '3'
 
-  # MongoDB service
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongo-data:/data/db # Persist MongoDB data
-      - ./mongo-init:/docker-entrypoint-initdb.d
-    # restart: always
-    command: mongod --auth
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: moviedb
+    # MongoDB service
+    mongo:
+        image: mongo:latest
+        ports:
+            - '27017:27017'
+        volumes:
+            - mongo-data:/data/db # Persist MongoDB data
+            - ./mongo-init:/docker-entrypoint-initdb.d
+        # restart: always
+        command: mongod --auth
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+            MONGO_INITDB_DATABASE: moviedb
 
 volumes:
-  mongo-data:
+    mongo-data:

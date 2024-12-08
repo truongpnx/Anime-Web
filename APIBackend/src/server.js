@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const animeRoutes = require('./routes/AnimeRoutes');
 const episodeRoutes = require('./routes/EpisodeRoutes');
+const genreRoutes = require('./routes/GenreRoutes');
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
@@ -33,6 +34,7 @@ app.use(
 
 app.use('/anime', animeRoutes);
 app.use('/episode', episodeRoutes);
+app.use('/genre', genreRoutes);
 
 // [GET] '/'
 app.get('/', (req, res) => {
