@@ -1,19 +1,18 @@
-/** @type {import('mongoose')} */
-const mongoose = require('mongoose');
-const Anime = require('./Anime');
+import mongoose, { CallbackError } from 'mongoose';
+import Anime from './Anime';
 
 const genreSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
 });
 
 // document.deleteOne()
-genreSchema.pre('deleteOne', { document: true, query: false }, async function () {
+genreSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     console.log('Deleting doc!');
     try {
         await Anime.updateMany({ genres: this._id }, { $pull: { genres: this._id } });
         next();
     } catch (err) {
-        next(err);
+        next(err as CallbackError);
     }
 });
 
@@ -25,7 +24,7 @@ genreSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
 
         next();
     } catch (err) {
-        next(err);
+        next(err as CallbackError);
     }
 });
 
@@ -41,10 +40,10 @@ genreSchema.pre('deleteMany', async function (next) {
 
         next();
     } catch (err) {
-        next(err);
+        next(err as CallbackError);
     }
 });
 
 const Genre = mongoose.model('Genre', genreSchema);
 
-module.exports = Genre;
+export default Genre;

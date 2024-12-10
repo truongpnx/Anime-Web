@@ -1,8 +1,7 @@
-/** @type {import('mongoose')} */
-const mongoose = require('mongoose');
+import mongoose, { CallbackError } from 'mongoose';
 
-const Anime = require('./Anime');
-const Comment = require('./Comment');
+import Anime from './Anime';
+import Comment from './Comment';
 
 const episodeSchema = new mongoose.Schema({
     animeId: {
@@ -38,13 +37,13 @@ const episodeSchema = new mongoose.Schema({
 
 // Middleware
 
-episodeSchema.pre('deleteOne', { document: true, query: false }, async (next) => {
+episodeSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     try {
         await Comment.deleteMany({ episodeId: this._id });
         console.log(`All comments for episode ${this._id} have been deleted.`);
         next();
     } catch (err) {
-        next(err);
+        next(err as CallbackError);
     }
 });
 
@@ -52,7 +51,7 @@ episodeSchema.post('save', async (doc) => {
     await Anime.findByIdAndUpdate(doc.animeId, { $inc: { episodesNum: 1 } });
 });
 
-episodeSchema.post('deleteOne', async (doc) => {
+episodeSchema.post('deleteOne', async function (doc) {
     try {
         // decrease `episodesNum` for the associated Anime
         await Anime.findByIdAndUpdate(doc.animeId, { $inc: { episodesNum: -1 } });
@@ -77,6 +76,4 @@ episodeSchema.index({ animeId: 1, episodeNum: 1 }, { unique: true });
 
 const Episode = mongoose.model('Episode', episodeSchema);
 
-// Episode.collection.dropIndex('animeId_1_episodeNum_1');
-
-module.exports = Episode;
+export default Episode;

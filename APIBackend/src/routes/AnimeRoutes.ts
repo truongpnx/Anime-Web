@@ -1,15 +1,15 @@
-const express = require('express');
+import express, { Request, Response } from 'express';
 const router = express.Router();
-const Anime = require('../models/Anime');
-const { normalizeAnimeName } = require('../helper/stringHelper');
-const { default: mongoose } = require('mongoose');
+import Anime from '../models/Anime';
+import { normalizeAnimeName } from '../helper/stringHelper';
+import { default as mongoose } from 'mongoose';
 
 // [GET] '/?id='
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
     try {
         let id = req.query.id;
 
-        if (id) {
+        if (mongoose.isValidObjectId(id)) {
             const anime = await Anime.findById(id);
             return res.json(anime);
         }
@@ -86,7 +86,7 @@ router.post('/update', async (req, res) => {
         const id = req.query.id;
         let updates = req.body;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({ error: 'Invalid Anime ID' });
         }
 
@@ -125,7 +125,7 @@ router.delete('/', async (req, res) => {
             return res.status(400).json('Empty id');
         }
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({ error: 'Invalid Anime ID' });
         }
 
@@ -138,4 +138,4 @@ router.delete('/', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

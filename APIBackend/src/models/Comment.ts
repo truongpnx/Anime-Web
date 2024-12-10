@@ -1,6 +1,5 @@
-/** @type {import('mongoose')} */
-const mongoose = require('mongoose');
-const Anime = require('./Anime');
+import mongoose from 'mongoose';
+import Anime from './Anime';
 
 const commentSchema = new mongoose.Schema(
     {
@@ -23,4 +22,4 @@ commentSchema.post('deleteOne', async (doc) => {
 
 const Comment = mongoose.model('Comment', commentSchema);
 
-module.exports = Comment;
+export default Comment;

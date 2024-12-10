@@ -1,18 +1,23 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
+import express, { Express, Request, Response } from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import jwt from 'jsonwebtoken';
 
 require('dotenv').config();
 
-const animeRoutes = require('./routes/AnimeRoutes');
-const episodeRoutes = require('./routes/EpisodeRoutes');
-const genreRoutes = require('./routes/GenreRoutes');
+import animeRoutes from './routes/AnimeRoutes';
+import episodeRoutes from './routes/EpisodeRoutes';
+import genreRoutes from './routes/GenreRoutes';
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
+const options = {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+};
+
 mongoose
-    .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(MONGO_URL, options)
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Failed to connect to MongoDB', err));
 
@@ -42,7 +47,7 @@ app.get('/', (req, res) => {
     res.json('Hello from backend');
 });
 
-app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/favicon.ico', (req: Request, res: Response) => res.status(204).end());
 
 // [GET] /hello
 app.get('/hello', (req, res) => {

@@ -1,5 +1,5 @@
-const express = require('express');
-const Genre = require('../models/Genre');
+import express from 'express';
+import Genre from '../models/Genre';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -47,4 +47,4 @@ router.delete('/', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

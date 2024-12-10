@@ -1,5 +1,7 @@
-const Anime = require('../../../src/models/Anime');
-const Genre = require('../../../src/models/Genre');
+import { describe, expect, test } from '@jest/globals';
+
+import Anime from '../../../src/models/Anime';
+import Genre from '../../../src/models/Genre';
 
 describe('Genre Model delete', () => {
     test('Should delete a genre by ID', async () => {
@@ -64,7 +66,7 @@ describe('Genre Model delete', () => {
         expect(allGenres).toHaveLength(4);
     });
 
-    test('Should delete a genre in anime', async () => {
+    test('Should delete a genre and update anime', async () => {
         const genres = await Genre.create([
             { name: 'Action' },
             { name: 'Adventure' },
@@ -73,7 +75,35 @@ describe('Genre Model delete', () => {
         ]);
 
         const genresId = genres.map((e) => e._id);
-        let anime = await Anime.create({
+        const anime = await Anime.create({
+            name: 'anime-test',
+            displayName: 'Anime test',
+            genres: genresId,
+        });
+
+        expect(anime).toBeDefined();
+        expect(anime.genres).toHaveLength(4);
+
+        const res = await Genre.deleteOne({ name: 'Adventure' });
+
+        const genreNum = await Genre.countDocuments();
+        expect(genreNum).toBe(3);
+
+        expect(res?.deletedCount).toBe(1);
+        const updated = await Anime.findById(anime._id);
+        expect(updated?.genres).toHaveLength(3);
+    });
+
+    test('Should update anime when findAndDelete', async () => {
+        const genres = await Genre.create([
+            { name: 'Action' },
+            { name: 'Adventure' },
+            { name: 'Comedy' },
+            { name: 'Drama' },
+        ]);
+
+        const genresId = genres.map((e) => e._id);
+        const anime = await Anime.create({
             name: 'anime-test',
             displayName: 'Anime test',
             genres: genresId,
@@ -84,16 +114,14 @@ describe('Genre Model delete', () => {
 
         let res = await Genre.findOneAndDelete({ name: 'Action' });
 
+        let genreNum = await Genre.countDocuments();
+        expect(genreNum).toBe(3);
+
         expect(res).toBeDefined();
-        expect(res.name).toBe('Action');
-        anime = await Anime.findById(anime._id);
-        expect(anime.genres).toHaveLength(3);
+        expect(res?.name).toBe('Action');
 
-        res = await Genre.deleteOne({ name: 'Adventure' });
-
-        expect(res.deletedCount).toBe(1);
-        anime = await Anime.findById(anime._id);
-        expect(anime.genres).toHaveLength(2);
+        const updated = await Anime.findById(anime._id);
+        expect(updated?.genres).toHaveLength(3);
     });
 
     test('Should delete many genres in anime', async () => {
@@ -105,7 +133,7 @@ describe('Genre Model delete', () => {
         ]);
 
         const genresId = genres.map((e) => e._id);
-        let anime = await Anime.create({
+        const anime = await Anime.create({
             name: 'anime-test',
             displayName: 'Anime test',
             genres: genresId,
@@ -119,7 +147,7 @@ describe('Genre Model delete', () => {
         });
         expect(res.deletedCount).toBe(3);
 
-        anime = await Anime.findById(anime._id);
-        expect(anime.genres).toHaveLength(1);
+        const updated = await Anime.findById(anime._id);
+        expect(updated?.genres).toHaveLength(1);
     });
 });

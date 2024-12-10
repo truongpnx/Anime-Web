@@ -1,8 +1,6 @@
-/**
- * Normalize anime to skip connection case.
- * @param {string} name - The name of the anime.
- */
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.normalizeAnimeName = normalizeAnimeName;
 function normalizeAnimeName(name) {
     return name
         .toLowerCase()
@@ -10,5 +8,3 @@ function normalizeAnimeName(name) {
         .replace(/[^a-z0-9\s]/g, '')
         .replace(/\s+/g, '-');
 }
-
-module.exports = { normalizeAnimeName };

@@ -1,5 +1,4 @@
-/** @type {import('mongoose')} */
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const animeDetailsSchema = new mongoose.Schema({
     anime: {
@@ -32,7 +31,9 @@ const animeDetailsSchema = new mongoose.Schema({
             to: {
                 type: Date,
                 validate: {
-                    validator: (value) => !value || value >= this.airedDate.from,
+                    validator: function (value: Date) {
+                        return !value || value >= (this as any).airedDate?.from;
+                    },
                     message: 'The "to" date must not be less than the "from" date.',
                 },
             },
@@ -47,7 +48,7 @@ const animeDetailsSchema = new mongoose.Schema({
                 required: true,
                 default: 0,
                 validate: {
-                    validator: (value) => value >= 0,
+                    validator: (value: number) => value >= 0,
                     message: 'Average rate score must be positive',
                 },
             },
@@ -56,7 +57,7 @@ const animeDetailsSchema = new mongoose.Schema({
                 required: true,
                 default: 0,
                 validate: {
-                    validator: (value) => value >= 0,
+                    validator: (value: number) => value >= 0,
                     message: 'Average rate quantity must be positive',
                 },
             },
@@ -74,7 +75,7 @@ const animeDetailsSchema = new mongoose.Schema({
         required: true,
         default: 0,
         validate: {
-            validator: (value) => value >= 0,
+            validator: (value: number) => value >= 0,
             message: 'Duration must be positive',
         },
     }, // average episode duration in second
@@ -82,4 +83,4 @@ const animeDetailsSchema = new mongoose.Schema({
 
 const AnimeDetails = mongoose.model('AnimeDetaisl', animeDetailsSchema);
 
-module.exports = AnimeDetails;
+export default AnimeDetails;
