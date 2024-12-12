@@ -81,6 +81,6 @@ const animeDetailsSchema = new mongoose.Schema({
     }, // average episode duration in second
 });
 
-const AnimeDetails = mongoose.model('AnimeDetaisl', animeDetailsSchema);
+const AnimeDetails = mongoose.model('AnimeDetails', animeDetailsSchema);
 
 export default AnimeDetails;

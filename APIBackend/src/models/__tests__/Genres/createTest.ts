@@ -1,6 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
-
-import Genre from '../../../src/models/Genre';
+import Genre from '../../Genre';
 
 describe('Genre Model insert', () => {
     test('Should create a genre', async () => {

@@ -1,7 +1,5 @@
-import { describe, expect, test } from '@jest/globals';
-
-import Anime from '../../../src/models/Anime';
-import Genre from '../../../src/models/Genre';
+import Anime from '../../Anime';
+import Genre from '../../Genre';
 
 describe('Genre Model delete', () => {
     test('Should delete a genre by ID', async () => {
@@ -12,7 +10,7 @@ describe('Genre Model delete', () => {
         expect(existingGenre).not.toBeNull();
 
         // Delete the genre
-        await Genre.deleteOne({ _id: genre._id });
+        await existingGenre?.deleteOne();
 
         // Verify the genre no longer exists in the database
         const deletedGenre = await Genre.findById(genre._id);

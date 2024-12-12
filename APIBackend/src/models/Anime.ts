@@ -1,11 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose, { CallbackError, InferSchemaType } from 'mongoose';
 import Comment from './Comment';
 import Episode from './Episode';
 import AnimeDetails from './AnimeDetails';
+import { normalizeAnimeName } from '../helper/stringHelper';
 
 const animeSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
-    displayName: { type: String, required: true, unique: true },
+    displayName: { type: String, unique: true },
     numViews: { type: Number, default: 0 },
     numComments: { type: Number, default: 0 },
     episodesNum: { type: Number, default: 0 },
@@ -14,35 +15,49 @@ const animeSchema = new mongoose.Schema({
     imageUrl: String,
 });
 
-// animeSchema.pre('deleteOne', { document: true, query: false }, async (next) => {
-//     try {
-//         await Comment.deleteMany({ animeId: this._id });
-//         console.log(`All comments for anime ${this._id} have been deleted.`);
-//         await Episode.deleteMany({ animeId: this._id });
-//         console.log(`All episode of anime ${this._id} have been deleted.`);
-//         await AnimeDetails.deleteMany({ anime: this._id });
-//         console.log(`All details of anime ${this._id} have been deleted.`);
-//         next();
-//     } catch (err) {
-//         next(err);
-//     }
-// });
+type AnimeDocument = InferSchemaType<typeof animeSchema> & mongoose.Document;
 
-// animeSchema.post('find', async (docs, next) => {
-//     try {
-//         docs.map(async (doc) => {
-//             await doc.populate({
-//                 path: 'genres',
-//                 select: 'name -_id',
-//                 options: { sort: { name: 1 } },
-//             });
-//         });
-//         next();
-//     } catch (error) {
-//         next(error);
-//     }
-// });
+animeSchema.pre('save', async function (next) {
+    try {
+        if (!this.displayName) {
+            this.displayName = this.name;
+        }
+        this.name = normalizeAnimeName(this.name);
+        next();
+    } catch (error) {
+        next(error as CallbackError);
+    }
+});
 
-const Anime = mongoose.model('Anime', animeSchema);
+animeSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
+    try {
+        const animeId = await this.model.findOne(this.getQuery(), '_id');
+
+        await Comment.deleteMany({ animeId: animeId });
+        await Episode.deleteMany({ animeId: animeId });
+        await AnimeDetails.deleteMany({ anime: animeId });
+        next();
+    } catch (err) {
+        next(err as CallbackError);
+    }
+});
+
+animeSchema.pre('deleteMany', async function (next) {
+    try {
+        const deletedAnimeId = await this.model.find(this.getFilter(), '_id').lean();
+
+        await Promise.all([
+            Comment.deleteMany({ animeId: { $in: deletedAnimeId } }),
+            Episode.deleteMany({ animeId: { $in: deletedAnimeId } }),
+            AnimeDetails.deleteMany({ anime: { $in: deletedAnimeId } }),
+        ]);
+
+        next();
+    } catch (error) {
+        next(error as CallbackError);
+    }
+});
+
+const Anime = mongoose.model<AnimeDocument>('Anime', animeSchema);
 
 export default Anime;
