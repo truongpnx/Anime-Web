@@ -1,16 +1,38 @@
 import mongoose, { CallbackError } from 'mongoose';
 import Comment from './Comment';
+import ViewHistory from './ViewHistory';
+import { encryptPassword, isValidEmail } from '../helper/stringHelper';
 
 const userSchema = new mongoose.Schema({
-    email: { type: String, required: true },
+    email: {
+        type: String,
+        required: true,
+        validate: {
+            validator: isValidEmail,
+            message: (props: { value: string }) => `${props.value} is not a valid email address!`,
+        },
+        unique: true,
+    },
     userName: { type: String, required: true },
     password: { type: String, required: true },
+});
+
+userSchema.pre('save', async function (next) {
+    try {
+        if (this.isModified('password')) {
+            this.password = await encryptPassword(this.password);
+        }
+
+        next();
+    } catch (error) {
+        next(error as CallbackError);
+    }
 });
 
 userSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     try {
         await Comment.deleteMany({ userId: this._id });
-        console.log(`All comments for user ${this._id} have been deleted.`);
+        await ViewHistory.deleteMany({ userId: this._id });
         next();
     } catch (err) {
         next(err as CallbackError);
@@ -19,10 +41,10 @@ userSchema.pre('deleteOne', { document: true, query: false }, async function (ne
 
 userSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
     try {
-        const deletedUserId = await User.findOne(this.getQuery()).select('_id');
+        const deletedUser = await this.model.findOne(this.getQuery(), '_id');
 
-        await Comment.deleteMany({ userId: deletedUserId });
-        console.log(`All comments for user ${deletedUserId} have been deleted.`);
+        await Comment.deleteMany({ userId: deletedUser._id });
+        await ViewHistory.deleteMany({ userId: deletedUser._id });
         next();
     } catch (err) {
         next(err as CallbackError);
@@ -31,9 +53,10 @@ userSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
 
 userSchema.pre('deleteMany', async function (next) {
     try {
-        const userIds = await User.find(this.getQuery()).select('_id');
+        const userIds = await this.model.find(this.getQuery(), '_id');
 
-        await Comment.deleteMany({ userId: { $in: userIds } });
+        await Comment.deleteMany({ userId: { $in: userIds.map((e) => e._id) } });
+        await ViewHistory.deleteMany({ userId: { $in: userIds.map((e) => e._id) } });
         next();
     } catch (err) {
         next(err as CallbackError);

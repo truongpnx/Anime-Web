@@ -2,6 +2,7 @@ import mongoose, { CallbackError, Document, InferSchemaType, Query } from 'mongo
 
 import Anime from './Anime';
 import Comment from './Comment';
+import ViewHistory from './ViewHistory';
 
 const episodeSchema = new mongoose.Schema({
     animeId: {
@@ -41,6 +42,7 @@ type EpisodeDocument = InferSchemaType<typeof episodeSchema> & Document;
 episodeSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     try {
         await Comment.deleteMany({ episodeId: this._id });
+        await ViewHistory.deleteMany({ episodeId: this._id });
         next();
     } catch (err) {
         next(err as CallbackError);
@@ -52,6 +54,7 @@ episodeSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
         const deletedEpId = await this.model.findOne(this.getQuery(), '_id');
         if (deletedEpId) {
             await Comment.deleteMany({ episodeId: deletedEpId });
+            await ViewHistory.deleteMany({ episodeId: deletedEpId });
         }
 
         next();
@@ -130,6 +133,7 @@ episodeSchema.pre<DeleteManyContext>('deleteMany', async function (next) {
         }>;
 
         await Comment.deleteMany({ episodeId: { $in: this.deletedDocuments.map((e) => e._id) } });
+        await ViewHistory.deleteMany({ episodeId: { $in: this.deletedDocuments.map((e) => e._id) } });
 
         next();
     } catch (error) {

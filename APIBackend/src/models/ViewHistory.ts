@@ -1,5 +1,4 @@
-/** @type {import('mongoose')} */
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const viewHistorySchema = new mongoose.Schema(
     {
@@ -17,7 +16,7 @@ const viewHistorySchema = new mongoose.Schema(
             type: Number,
             default: 0,
             validate: {
-                validator: function (value) {
+                validator: function (value: number) {
                     return value >= 0;
                 },
                 message: 'Watch time cannot be negative.',
@@ -31,4 +30,4 @@ viewHistorySchema.index({ userId: 1, episodeId: 1 }, { unique: true });
 
 const ViewHistory = mongoose.model('ViewHistory', viewHistorySchema);
 
-module.exports = ViewHistory;
+export default ViewHistory;
