@@ -29,6 +29,17 @@ animeSchema.pre('save', async function (next) {
     }
 });
 
+animeSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
+    try {
+        await Comment.deleteMany({ animeId: this._id });
+        await Episode.deleteMany({ animeId: this._id });
+        await AnimeDetails.deleteMany({ anime: this._id });
+        next();
+    } catch (err) {
+        next(err as CallbackError);
+    }
+});
+
 animeSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
     try {
         const animeId = await this.model.findOne(this.getQuery(), '_id');
