@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, InferSchemaType } from 'mongoose';
 
 const viewHistorySchema = new mongoose.Schema(
     {
@@ -28,6 +28,8 @@ const viewHistorySchema = new mongoose.Schema(
 
 viewHistorySchema.index({ userId: 1, episodeId: 1 }, { unique: true });
 
-const ViewHistory = mongoose.model('ViewHistory', viewHistorySchema);
+export type ViewHistoryDocument = InferSchemaType<typeof viewHistorySchema> & Document;
+
+const ViewHistory = mongoose.model<ViewHistoryDocument>('ViewHistory', viewHistorySchema);
 
 export default ViewHistory;

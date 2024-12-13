@@ -4,11 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const GenreController_1 = require("../controllers/GenreController");
+const UserController_1 = require("../controllers/UserController");
 const router = express_1.default.Router();
-router.get('/', GenreController_1.getAllGenre);
-router.get('/:id', GenreController_1.getGenreById);
-router.post('/add', GenreController_1.addGenre);
-router.post('/:id/update', GenreController_1.updateGenre);
-router.delete('/:id', GenreController_1.deleteGenre);
+router.get('/', UserController_1.getUser);
+router.post('/login', UserController_1.login);
+router.post('/signUp', UserController_1.signUp);
 exports.default = router;

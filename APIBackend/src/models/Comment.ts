@@ -12,7 +12,7 @@ const commentSchema = new mongoose.Schema(
     { timestamps: true },
 );
 
-type CommentDocument = InferSchemaType<typeof commentSchema> & Document;
+export type CommentDocument = InferSchemaType<typeof commentSchema> & Document;
 
 commentSchema.post('save', async function (doc) {
     await Anime.findByIdAndUpdate(doc.animeId, { $inc: { numComments: 1 } });

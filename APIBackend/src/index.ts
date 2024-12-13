@@ -6,8 +6,10 @@ import jwt from 'jsonwebtoken';
 require('dotenv').config();
 
 import animeRoutes from './routes/AnimeRoutes';
-import episodeRoutes from './routes/EpisodeRoutes';
 import genreRoutes from './routes/GenreRoutes';
+import userRoutes from './routes/UserRoutes';
+import commentRoutes from './routes/CommentRoutes';
+import viewHistoryRoutes from './routes/ViewHistoryRoutes';
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
@@ -38,8 +40,10 @@ app.use(
 // routes
 
 app.use('/anime', animeRoutes);
-app.use('/episode', episodeRoutes);
 app.use('/genre', genreRoutes);
+app.use('/user', userRoutes);
+app.use('/comment', commentRoutes);
+app.use('/view-history', viewHistoryRoutes);
 
 // [GET] '/'
 app.get('/', (req, res) => {

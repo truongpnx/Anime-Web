@@ -4,11 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const GenreController_1 = require("../controllers/GenreController");
+const CommentController_1 = require("../controllers/CommentController");
 const router = express_1.default.Router();
-router.get('/', GenreController_1.getAllGenre);
-router.get('/:id', GenreController_1.getGenreById);
-router.post('/add', GenreController_1.addGenre);
-router.post('/:id/update', GenreController_1.updateGenre);
-router.delete('/:id', GenreController_1.deleteGenre);
+router.get('/', CommentController_1.getComments);
+router.post('/add', CommentController_1.addComment);
+router.post('/:commentId/update', CommentController_1.updateComment);
+router.delete('/:commentId', CommentController_1.updateComment);
 exports.default = router;

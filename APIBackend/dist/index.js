@@ -8,8 +8,10 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 require('dotenv').config();
 const AnimeRoutes_1 = __importDefault(require("./routes/AnimeRoutes"));
-const EpisodeRoutes_1 = __importDefault(require("./routes/EpisodeRoutes"));
 const GenreRoutes_1 = __importDefault(require("./routes/GenreRoutes"));
+const UserRoutes_1 = __importDefault(require("./routes/UserRoutes"));
+const CommentRoutes_1 = __importDefault(require("./routes/CommentRoutes"));
+const ViewHistoryRoutes_1 = __importDefault(require("./routes/ViewHistoryRoutes"));
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 const options = {
 // useNewUrlParser: true,
@@ -31,8 +33,10 @@ app.use((0, cors_1.default)({
 }));
 // routes
 app.use('/anime', AnimeRoutes_1.default);
-app.use('/episode', EpisodeRoutes_1.default);
 app.use('/genre', GenreRoutes_1.default);
+app.use('/user', UserRoutes_1.default);
+app.use('/comment', CommentRoutes_1.default);
+app.use('/view-history', ViewHistoryRoutes_1.default);
 // [GET] '/'
 app.get('/', (req, res) => {
     // res.redirect(`/anime`);

@@ -36,8 +36,7 @@ const animeDetailsSchema = new mongoose_1.default.Schema({
                 type: Date,
                 validate: {
                     validator: function (value) {
-                        var _a;
-                        return !value || value >= ((_a = this.airedDate) === null || _a === void 0 ? void 0 : _a.from);
+                        return !value || value >= this.airedDate?.from;
                     },
                     message: 'The "to" date must not be less than the "from" date.',
                 },
@@ -85,5 +84,5 @@ const animeDetailsSchema = new mongoose_1.default.Schema({
         },
     }, // average episode duration in second
 });
-const AnimeDetails = mongoose_1.default.model('AnimeDetaisl', animeDetailsSchema);
+const AnimeDetails = mongoose_1.default.model('AnimeDetails', animeDetailsSchema);
 exports.default = AnimeDetails;
