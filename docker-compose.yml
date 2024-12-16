@@ -26,7 +26,11 @@ services:
             - ./APIBackend:/app
         command: npm start # Start Node.js app
         environment:
-            - MONGO_URL=mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb # Connect to the MongoDB service
+            - MONGO_URL=${MONGO_URL} # Connect to the MongoDB service
+            - STR_SOCIAL_LOGIN=${STR_SOCIAL_LOGIN}
+            - JWT_SECRET=${JWT_SECRET}
+            - CLIENT_ID_GG=${CLIENT_ID_GG}
+            - CLIENT_SECRET_GG=${CLIENT_SECRET_GG}
         depends_on:
             - mongo # Wait for MongoDB to be ready
         logging:

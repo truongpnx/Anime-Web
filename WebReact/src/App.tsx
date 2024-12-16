@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
 import NotFound from './pages/NotFound';
+import { handleAuthToken } from './utils/auth';
 
 function App() {
     useEffect(() => {
         document.title = 'My Anime Web';
+        handleAuthToken();
     }, []);
 
     return (

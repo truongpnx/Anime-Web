@@ -9,9 +9,10 @@
 .wrapper li {
     list-style: none;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 
-.wrapper li a {
+.wrapper li p {
     color: #ffffff;
     display: block;
     font-size: 1.3rem;
@@ -22,7 +23,6 @@
     padding: 14px 0;
     position: relative;
     margin: 0 auto;
-    text-decoration: none;
 
     @media only screen and (max-width: calc(variables.$breakpoint-md - 1px)) {
         width: auto;

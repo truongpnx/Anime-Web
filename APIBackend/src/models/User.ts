@@ -1,7 +1,8 @@
-import mongoose, { CallbackError } from 'mongoose';
+import mongoose, { CallbackError, InferSchemaType } from 'mongoose';
 import Comment from './Comment';
 import ViewHistory from './ViewHistory';
 import { encryptPassword, isValidEmail } from '../helper/stringHelper';
+import SocialAuth from './SocialAuth';
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -33,6 +34,7 @@ userSchema.pre('deleteOne', { document: true, query: false }, async function (ne
     try {
         await Comment.deleteMany({ userId: this._id });
         await ViewHistory.deleteMany({ userId: this._id });
+        await SocialAuth.deleteMany({ userId: this._id });
         next();
     } catch (err) {
         next(err as CallbackError);
@@ -45,6 +47,8 @@ userSchema.pre(['deleteOne', 'findOneAndDelete'], async function (next) {
 
         await Comment.deleteMany({ userId: deletedUser._id });
         await ViewHistory.deleteMany({ userId: deletedUser._id });
+        await SocialAuth.deleteMany({ userId: deletedUser._id });
+
         next();
     } catch (err) {
         next(err as CallbackError);
@@ -57,12 +61,16 @@ userSchema.pre('deleteMany', async function (next) {
 
         await Comment.deleteMany({ userId: { $in: userIds.map((e) => e._id) } });
         await ViewHistory.deleteMany({ userId: { $in: userIds.map((e) => e._id) } });
+        await SocialAuth.deleteMany({ userId: { $in: userIds.map((e) => e._id) } });
+
         next();
     } catch (err) {
         next(err as CallbackError);
     }
 });
 
-const User = mongoose.model('User', userSchema);
+export type UserDocument = InferSchemaType<typeof userSchema> & mongoose.Document;
+
+const User = mongoose.model<UserDocument>('User', userSchema);
 
 export default User;

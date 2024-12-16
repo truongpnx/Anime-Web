@@ -10,6 +10,7 @@ import genreRoutes from './routes/GenreRoutes';
 import userRoutes from './routes/UserRoutes';
 import commentRoutes from './routes/CommentRoutes';
 import viewHistoryRoutes from './routes/ViewHistoryRoutes';
+import socialAuthRoutes from './routes/SocialAuthRoutes';
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
@@ -44,6 +45,7 @@ app.use('/genre', genreRoutes);
 app.use('/user', userRoutes);
 app.use('/comment', commentRoutes);
 app.use('/view-history', viewHistoryRoutes);
+app.use('/oauth', socialAuthRoutes);
 
 // [GET] '/'
 app.get('/', (req, res) => {
