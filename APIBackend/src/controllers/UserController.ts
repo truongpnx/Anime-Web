@@ -4,7 +4,10 @@ import { isValidEmail } from '../helper/stringHelper';
 import User from '../models/User';
 
 export const getUser = async (req: Request, res: Response) => {
-    res.send('Need to get token');
+    if (req.isAuthenticated()) {
+        return res.status(200).json({ message: 'Authorized' });
+    }
+    res.status(401).json({ error: 'Unauthorized' });
 };
 
 export const login = async (req: Request, res: Response) => {

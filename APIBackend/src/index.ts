@@ -1,7 +1,10 @@
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import passport from './controllers/PassportController';
 
 require('dotenv').config();
 
@@ -10,7 +13,7 @@ import genreRoutes from './routes/GenreRoutes';
 import userRoutes from './routes/UserRoutes';
 import commentRoutes from './routes/CommentRoutes';
 import viewHistoryRoutes from './routes/ViewHistoryRoutes';
-import socialAuthRoutes from './routes/SocialAuthRoutes';
+import socialAuthRoutes from './routes/AuthRoutes';
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
@@ -33,10 +36,31 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
     cors({
-        origin: ['http://truongpnxtest.com:3000', 'http://localhost:3000'],
+        origin: process.env.FRONTEND_URL,
         credentials: true,
     }),
 );
+
+app.use(cookieParser());
+
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET as string,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 30 * 60 * 1000, // 30m
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : undefined,
+        },
+        resave: false,
+        store: MongoStore.create({
+            mongoUrl: MONGO_URL,
+        }),
+    }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 

@@ -243,3 +243,17 @@
     text-transform: uppercase;
     margin-bottom: 30px;
 }
+
+.error {
+    background-color: #e5363755;
+    width: auto;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    font-weight: 700;
+    color: white;
+    border-radius: 5px;
+
+    @media (min-width: variables.$breakpoint-lg) {
+        width: 370px;
+    }
+}

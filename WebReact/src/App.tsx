@@ -1,50 +1,48 @@
 import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
 import NotFound from './pages/NotFound';
-import { handleAuthToken } from './utils/auth';
+
+const routes = Object.entries(publicRoutes).map(([_, route]) => {
+    const Page = route.component;
+    const Layout = route.layout === undefined ? DefaultLayout : route.layout === null ? Fragment : route.layout;
+
+    return {
+        path: route.path,
+        element: (
+            <Layout>
+                <Page />
+            </Layout>
+        ),
+        action: route.action || undefined,
+    };
+});
+
+routes.push({
+    path: '*',
+    element: <NotFound />,
+    action: undefined,
+});
+
+const router = createBrowserRouter(routes);
 
 function App() {
     useEffect(() => {
         document.title = 'My Anime Web';
-        handleAuthToken();
     }, []);
 
     return (
-        <Router
+        <RouterProvider
             future={{
                 v7_startTransition: true,
-                v7_relativeSplatPath: true,
+                // v7_normalizeFormMethod: true,
+                // v7_fetcherPersist: true,
+                // v7_partialHydration: true,
+                // v7_relativeSplatPath: true,
             }}
-        >
-            <div className="App">
-                <Routes>
-                    {Object.entries(publicRoutes).map(([_, route], index) => {
-                        const Page = route.component;
-                        let Layout =
-                            route.layout === undefined
-                                ? DefaultLayout
-                                : route.layout === null
-                                ? Fragment
-                                : route.layout;
-
-                        return (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
-                                }
-                            />
-                        );
-                    })}
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </div>
-        </Router>
+            router={router}
+        />
     );
 }
 

@@ -25,12 +25,8 @@ services:
         volumes:
             - ./APIBackend:/app
         command: npm start # Start Node.js app
-        environment:
-            - MONGO_URL=${MONGO_URL} # Connect to the MongoDB service
-            - STR_SOCIAL_LOGIN=${STR_SOCIAL_LOGIN}
-            - JWT_SECRET=${JWT_SECRET}
-            - CLIENT_ID_GG=${CLIENT_ID_GG}
-            - CLIENT_SECRET_GG=${CLIENT_SECRET_GG}
+        env_file:
+            - ./APIBackend/.env
         depends_on:
             - mongo # Wait for MongoDB to be ready
         logging:

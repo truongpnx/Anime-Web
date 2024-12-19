@@ -28,9 +28,9 @@ function Header() {
         <header className={styles.wrapper}>
             <div className="container">
                 <div className={styles.row}>
-                    <div className={styles.logo}>
+                    <Link className={styles.logo} to="/">
                         <img src={images.logo} alt="logo" />
-                    </div>
+                    </Link>
                     <div className={styles['menu-col']}>
                         <ul className={styles['menu-container']}>
                             {menuItem.map((item, index) => (

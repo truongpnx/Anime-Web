@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { bcryptSaltRounds } from '../constants';
 
 function normalizeAnimeName(name: string): string {
     return name
@@ -11,7 +10,7 @@ function normalizeAnimeName(name: string): string {
 }
 
 async function encryptPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, bcryptSaltRounds);
+    return bcrypt.hash(password, Number(process.env.SALT_ROUNDS) || 10);
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
