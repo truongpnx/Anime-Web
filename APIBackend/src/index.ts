@@ -12,8 +12,7 @@ import animeRoutes from './routes/AnimeRoutes';
 import genreRoutes from './routes/GenreRoutes';
 import userRoutes from './routes/UserRoutes';
 import commentRoutes from './routes/CommentRoutes';
-import viewHistoryRoutes from './routes/ViewHistoryRoutes';
-import socialAuthRoutes from './routes/AuthRoutes';
+import authRoutes from './routes/AuthRoutes';
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
 
@@ -64,12 +63,11 @@ app.use(passport.session());
 
 // routes
 
-app.use('/anime', animeRoutes);
-app.use('/genre', genreRoutes);
-app.use('/user', userRoutes);
-app.use('/comment', commentRoutes);
-app.use('/view-history', viewHistoryRoutes);
-app.use('/oauth', socialAuthRoutes);
+app.use('/animes', animeRoutes);
+app.use('/genres', genreRoutes);
+app.use('/users', userRoutes);
+app.use('/comments', commentRoutes);
+app.use('/', authRoutes);
 
 // [GET] '/'
 app.get('/', (req, res) => {

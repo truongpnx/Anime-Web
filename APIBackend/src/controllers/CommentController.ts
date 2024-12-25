@@ -23,6 +23,23 @@ export const getComments = async (req: Request, res: Response) => {
     }
 };
 
+export const getCommentById = async (req: Request, res: Response) => {
+    try {
+        if (!mongoose.isValidObjectId(req.params.commentId)) {
+            return res.status(400).json({ error: 'Invalid comment Id' });
+        }
+
+        const found = await Comment.findById(req.params.commentId);
+        if (!found) {
+            return res.sendStatus(404);
+        }
+        res.json(found);
+    } catch (error) {
+        console.error('Error get comment', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 export const addComment = async (req: Request, res: Response) => {
     try {
         const comment = new Comment(req.body);

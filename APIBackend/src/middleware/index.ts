@@ -1,30 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import session from 'express-session';
+import { UserDocument } from '../models/User';
 
-import jwt from 'jsonwebtoken';
-
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-    // console.log(req);
-
-    const token = req.cookies.auth_token;
-    if (!token) return res.status(401).json({ message: 'Unauthorized' });
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        res.status(401).json({ message: 'Invalid or expired token' });
+export const verifyAuthentication = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated()) {
+        return next();
     }
+
+    return res.sendStatus(403);
 };
 
-interface SessionData extends session.SessionData {
-    user?: any;
-}
-
-export const verifySession = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.session || !(req.session as SessionData).user) {
-        return res.status(401).json({ error: 'Unauthorized' });
+export const verifyAdmin = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated() && (req.user as UserDocument).role === 'Admin') {
+        return next();
     }
-    next();
+    return res.sendStatus(403);
 };

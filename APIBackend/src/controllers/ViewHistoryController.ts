@@ -20,6 +20,23 @@ export const getViewHistories = async (req: Request, res: Response) => {
     }
 };
 
+export const getViewHistoryById = async (req: Request, res: Response) => {
+    try {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({ error: 'Invalid Id' });
+        }
+
+        const found = await ViewHistory.findById(req.params.id);
+        if (!found) {
+            return res.sendStatus(404);
+        }
+        res.json(found);
+    } catch (error) {
+        console.error('Error get view history', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 export const addViewHistory = async (req: Request, res: Response) => {
     try {
         const histpry = new ViewHistory(req.body);

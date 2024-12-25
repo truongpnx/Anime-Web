@@ -75,7 +75,7 @@ function AnimeDetails({ data }: { data: any }) {
                     Follow
                 </Link>
                 &nbsp;
-                <Link to={publicRoutes.details.path} className={styles['watch-btn']}>
+                <Link to={publicRoutes.watching.path} className={styles['watch-btn']}>
                     <span>Watch Now</span>
                     &nbsp;
                     <div>

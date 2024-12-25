@@ -5,14 +5,31 @@ import Episode from '../models/Episode';
 export const getAllEpisode = async (req: Request, res: Response) => {
     try {
         if (!mongoose.isValidObjectId(req.params.animeId)) {
-            return res.status(400).json({ error: 'Invalid Anime Id' });
+            return res.sendStatus(400);
         }
 
         const episodes = await Episode.find({ animeId: req.params.animeId });
 
         res.json(episodes);
     } catch (error) {
-        console.error('Get all anime episode error', error);
+        console.error(`Error in ${getAllEpisode.name}`, error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+        });
+    }
+};
+
+export const countAllEpisode = async (req: Request, res: Response) => {
+    try {
+        if (!mongoose.isValidObjectId(req.params.animeId)) {
+            return res.sendStatus(400);
+        }
+
+        const counts = await Episode.countDocuments({ animeId: req.params.animeId });
+
+        res.json({ counts });
+    } catch (error) {
+        console.error(`Error in ${countAllEpisode.name}`, error);
         res.status(500).json({
             error: 'Internal Server Error',
         });
@@ -22,7 +39,7 @@ export const getAllEpisode = async (req: Request, res: Response) => {
 export const getEpisodeById = async (req: Request, res: Response) => {
     try {
         if (!mongoose.isValidObjectId(req.params.animeId)) {
-            return res.status(400).json({ error: 'Invalid Anime Id' });
+            return res.sendStatus(400);
         }
 
         if (!mongoose.isValidObjectId(req.params.episodeId)) {
@@ -43,7 +60,7 @@ export const getEpisodeById = async (req: Request, res: Response) => {
 export const addEpisode = async (req: Request, res: Response) => {
     try {
         if (!mongoose.isValidObjectId(req.params.animeId)) {
-            return res.status(400).json({ error: 'Invalid Anime Id' });
+            return res.sendStatus(400);
         }
 
         const episode = new Episode({
@@ -62,7 +79,7 @@ export const addEpisode = async (req: Request, res: Response) => {
 export const updateEpisode = async (req: Request, res: Response) => {
     try {
         if (!mongoose.isValidObjectId(req.params.animeId)) {
-            return res.status(400).json({ error: 'Invalid Anime Id' });
+            return res.sendStatus(400);
         }
 
         if (!mongoose.isValidObjectId(req.params.episodeId)) {
@@ -87,7 +104,7 @@ export const updateEpisode = async (req: Request, res: Response) => {
 export const deleteEpisode = async (req: Request, res: Response) => {
     try {
         if (!mongoose.isValidObjectId(req.params.animeId)) {
-            return res.status(400).json({ error: 'Invalid Anime Id' });
+            return res.sendStatus(400);
         }
 
         if (!mongoose.isValidObjectId(req.params.episodeId)) {

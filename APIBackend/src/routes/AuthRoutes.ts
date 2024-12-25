@@ -3,6 +3,7 @@ import passport from '../controllers/PassportController';
 import { authCallBack } from '../controllers/AuthController';
 import { UserDocument } from '../models/User';
 import { IVerifyOptions } from 'passport-local';
+import { signUp } from '../controllers/UserController';
 
 const router = express.Router();
 
@@ -24,25 +25,27 @@ router.post('/login', async (req: Request, res: Response) => {
 
             return res.status(200).json({
                 id: user._id,
-                name: user.userName,
+                userName: user.userName,
                 email: user.email,
             });
         });
     })(req, res);
 });
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.post('/register', signUp);
+
+router.get('/oauth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get(
-    '/google/callback',
+    '/oauth/google/callback',
     passport.authenticate('google', {
         failureRedirect: `${process.env.FRONTEND_URL}/login/failure`,
     }),
     authCallBack,
 );
 
-router.get('/facebook', passport.authenticate('facebook', { scope: ['profile', 'email'] }));
+router.get('/oauth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 router.get(
-    '/facebook/callback',
+    '/oauth/facebook/callback',
     passport.authenticate('facebook', {
         failureRedirect: `${process.env.FRONTEND_URL}/login/failure`,
     }),
