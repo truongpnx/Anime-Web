@@ -1,9 +1,21 @@
 import mongoose, { CallbackError } from 'mongoose';
 import Anime from './Anime';
 
-const genreSchema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true },
-});
+const genreSchema = new mongoose.Schema(
+    {
+        name: { type: String, required: true, unique: true },
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            transform: (doc, ret) => {
+                ret.id = ret._id;
+                delete ret._id;
+                delete ret.__v;
+            },
+        },
+    },
+);
 
 // document.deleteOne()
 genreSchema.pre('deleteOne', { document: true, query: false }, async function (next) {

@@ -12,7 +12,7 @@ export async function loginAction({ request }: ActionFunctionArgs): Promise<Logi
     const password = formData.get('password');
 
     try {
-        const res = await fetch(`${backendURL}/oauth/login`, {
+        const res = await fetch(`${backendURL}/v1/api/login`, {
             method: 'POST',
             credentials: 'include',
             headers: {

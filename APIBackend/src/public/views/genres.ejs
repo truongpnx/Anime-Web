@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Genres</title>
+    </head>
+    <body>
+        <% if (typeof error =='string' && error) { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
+
+        <button id="home">Home</button>
+        <button id="add" onclick="openAddModal()">Add</button>
+
+        <div id="updateModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Update Genre</h2>
+                <form id="updateForm" method="POST">
+                    <input type="hidden" id="genreId" name="id" />
+                    <label for="name">Genre Name:</label>
+                    <input type="text" id="genreName" name="name" required />
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="addModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddModal()">&times;</span>
+                <h2>Add Genre</h2>
+                <form id="addForm" method="POST">
+                    <label for="name">Genre Name:</label>
+                    <input type="text" id="addInput" name="name" required />
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% genres.forEach((genre, index) => { %> <%- include('components/genreRow', { genre: genre, index: index
+                }); -%> <% }); %>
+            </tbody>
+        </table>
+    </body>
+
+    <script>
+        document.getElementById('home').addEventListener('click', () => {
+            window.location.href = '/views/home';
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const id = document.getElementById('genreId').value;
+            const name = document.getElementById('genreName').value;
+
+            try {
+                const response = await fetch(`/v1/api/genres/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name }),
+                });
+
+                if (response.ok) {
+                    alert('Genre updated successfully!');
+                    location.reload(); // Reload the page to reflect the changes
+                } else {
+                    alert('Failed to update genre.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while updating the genre.');
+            }
+        });
+
+        document.getElementById('addForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const name = document.getElementById('addInput').value;
+
+            try {
+                const response = await fetch(`/v1/api/genres/new`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name }),
+                });
+
+                if (response.ok) {
+                    alert('Genre created successfully!');
+                    location.reload(); // Reload the page to reflect the changes
+                } else {
+                    alert('Failed to create genre.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while creating genre.');
+            }
+        });
+
+        function openUpdateModal(id, name) {
+            document.getElementById('updateModal').style.display = 'block';
+            document.getElementById('genreId').value = id;
+            document.getElementById('genreName').value = name;
+        }
+
+        function openAddModal() {
+            document.getElementById('addModal').style.display = 'block';
+            document.getElementById('addInput').value = '';
+        }
+
+        function closeModal() {
+            document.getElementById('updateModal').style.display = 'none';
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('updateModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</html>

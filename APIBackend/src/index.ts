@@ -8,13 +8,12 @@ import passport from './controllers/PassportController';
 
 require('dotenv').config();
 
-import animeRoutes from './routes/AnimeRoutes';
-import genreRoutes from './routes/GenreRoutes';
-import userRoutes from './routes/UserRoutes';
-import commentRoutes from './routes/CommentRoutes';
-import authRoutes from './routes/AuthRoutes';
+import apiRoutes from './routes/apis';
+import viewRoutes from './routes/views';
+import path from 'path';
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://moviedb:moviedb123@mongo:27017/moviedb?authSource=moviedb';
+const API_VERSION_PATH = process.env.API_VERSION_PATH || '/v1/api';
 
 const options = {
     // useNewUrlParser: true,
@@ -61,27 +60,23 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// ejs setup
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/public/views'));
+
 // routes
 
-app.use('/animes', animeRoutes);
-app.use('/genres', genreRoutes);
-app.use('/users', userRoutes);
-app.use('/comments', commentRoutes);
-app.use('/', authRoutes);
+app.use(API_VERSION_PATH, apiRoutes);
+app.use('/views', viewRoutes);
+app.use('/static', express.static(path.join(__dirname, '/public')));
 
 // [GET] '/'
 app.get('/', (req, res) => {
-    // res.redirect(`/anime`);
-    res.json('Hello from backend');
+    res.redirect('/views/auth/login');
 });
 
 app.get('/favicon.ico', (req: Request, res: Response) => res.status(204).end());
-
-// [GET] /hello
-app.get('/hello', (req, res) => {
-    console.log('hello chill guy');
-    res.json("Hello chill guy, I'm from the backend!");
-});
 
 // Start the server
 app.listen(PORT, () => {

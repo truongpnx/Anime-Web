@@ -5,8 +5,8 @@ import {
     getAllEpisode,
     getEpisodeById,
     updateEpisode,
-} from '../controllers/EpisodeController';
-import { verifyAdmin } from '../middleware';
+} from '../../controllers/EpisodeController';
+import { verifyAdmin } from '../../middleware';
 const router = express.Router({ mergeParams: true });
 
 router.get('/', getAllEpisode);

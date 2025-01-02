@@ -1,6 +1,6 @@
 import express from 'express';
-import { addGenre, deleteGenre, getAllGenre, getGenreById, updateGenre } from '../controllers/GenreController';
-import { verifyAdmin } from '../middleware';
+import { addGenre, deleteGenre, getAllGenre, getGenreById, updateGenre } from '../../controllers/GenreController';
+import { verifyAdmin } from '../../middleware';
 const router = express.Router();
 
 router.get('/', getAllGenre);

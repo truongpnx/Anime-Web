@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+    </head>
+    <body>
+        <p>Hello, <%= userName %></p>
+
+        <h1>Pages:</h1>
+        <ul>
+            <li><a href="/views/animes">Animes</a></li>
+            <li><a href="/views/genres">Genres</a></li>
+        </ul>
+
+        <button id="logout" type="button">Log Out</button>
+    </body>
+    <script>
+        const logoutBtn = document.getElementById('logout');
+
+        logoutBtn.addEventListener('click', async (event) => {
+            const res = await fetch('/views/auth/logout', {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+
+            if (!res.ok) {
+                console.warn('Delete error: ', res);
+            }
+            window.location.href = '/';
+        });
+    </script>
+</html>

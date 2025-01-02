@@ -6,7 +6,7 @@ import { faFacebookF, faGoogle, faXTwitter } from '@fortawesome/free-brands-svg-
 import { backendURL } from '../../constants';
 
 async function auth(media: string) {
-    window.location.href = `${backendURL}/oauth/${media}`;
+    window.location.href = `${backendURL}/v1/api/${media}`;
 }
 
 function SocialLogin() {

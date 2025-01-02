@@ -5,8 +5,8 @@ import {
     getViewHistories,
     getViewHistoryById,
     updateViewHistory,
-} from '../controllers/ViewHistoryController';
-import { verifyAuthentication } from '../middleware';
+} from '../../controllers/ViewHistoryController';
+import { verifyAuthentication } from '../../middleware';
 const router = express.Router();
 
 router.get('/', getViewHistories);

@@ -9,7 +9,7 @@ import {
     getAnimeById,
     getBatchAnimes,
     updateAnime,
-} from '../controllers/AnimeController';
+} from '../../controllers/AnimeController';
 
 import episodeRoutes from './EpisodeRoutes';
 import {
@@ -17,8 +17,8 @@ import {
     deleteAnimeDetails,
     getAnimeDetails,
     updateAnimeDetails,
-} from '../controllers/AnimeDetailsController';
-import { verifyAdmin } from '../middleware';
+} from '../../controllers/AnimeDetailsController';
+import { verifyAdmin } from '../../middleware';
 
 // Anime Routes
 

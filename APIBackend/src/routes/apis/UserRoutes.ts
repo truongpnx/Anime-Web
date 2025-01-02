@@ -1,6 +1,6 @@
 import express from 'express';
-import { deleteUserById, getAllUsers, getUserById, updateUserById } from '../controllers/UserController';
-import { verifyAuthentication } from '../middleware';
+import { deleteUserById, getAllUsers, getUserById, updateUserById } from '../../controllers/UserController';
+import { verifyAuthentication } from '../../middleware';
 import viewHistoryRoutes from './ViewHistoryRoutes';
 
 const router = express.Router();

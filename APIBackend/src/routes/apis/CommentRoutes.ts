@@ -1,6 +1,6 @@
 import express from 'express';
-import { addComment, getCommentById, getComments, updateComment } from '../controllers/CommentController';
-import { verifyAuthentication } from '../middleware';
+import { addComment, getCommentById, getComments, updateComment } from '../../controllers/CommentController';
+import { verifyAuthentication } from '../../middleware';
 const router = express.Router();
 
 router.get('/', getComments);

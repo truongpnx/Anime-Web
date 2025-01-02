@@ -81,7 +81,7 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID_GG as string,
             clientSecret: process.env.CLIENT_SECRET_GG as string,
-            callbackURL: '/oauth/google/callback',
+            callbackURL: `${process.env.API_VERSION_PATH}/google/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
             await socialCreateUser('google', profile, done);
@@ -94,7 +94,7 @@ passport.use(
         {
             clientID: process.env.FACEBOOK_APP_ID as string,
             clientSecret: process.env.FACEBOOK_APP_SECRET as string,
-            callbackURL: '/oauth/facebook/callback',
+            callbackURL: `${process.env.API_VERSION_PATH}/facebook/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
             await socialCreateUser('facebook', profile, done);
